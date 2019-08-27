@@ -19,3 +19,5 @@ Please follow along as the instructor adds support for `JSON Web Tokens (JWT)` t
 - Cookies to manage sessions, JSON Web Token's for API authentication?---> Different scope for different use?
 - What are doing in this project does not really involve session work. 
 - Authentication/API Server not being the same?
+- Cookies help us with application state, tracking for fun purposes 
+- JWT should not be used for sessions, but for authentication and such
