@@ -1,8 +1,30 @@
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
+const secrets = require('../config/secrets.js');
+
 
 module.exports = (req, res, next) => {
+  //Let's try this with Tokens
+  const token = req.headers.authorization;
+  if (token){
+    jwt.verify(token, secrets.jwtSecret, (err, decodedToken) =>{
+      if (err){
+        //bad token 
+        res.status(401).json({message:"something wrong with auth", err});
+      } else {
+        req.decodedJwt = decodedToken;
+        next();
+      }
+    })
+  } else {
+    res.status(401).json({message: 'You got no token'})
+  }
+  
+  
+  
+  /*
+  //With Headers
   const { username, password } = req.headers;
 
   if (username && password) {
@@ -21,4 +43,6 @@ module.exports = (req, res, next) => {
   } else {
     res.status(400).json({ message: 'No credentials provided' });
   }
+
+  */
 };
